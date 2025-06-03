@@ -9,30 +9,63 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ route('home') }}">🚀 INFOTEL BUSINESS</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <form class="d-flex me-3" role="search" method="GET" action="{{ route('home') }}">
-        <input class="form-control me-2" type="search" placeholder="Buscar artesanía..." aria-label="Buscar" name="query" />
-        <button class="btn btn-outline-light" type="submit">Buscar</button>
-      </form>
-      @guest
-        <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
-      @else
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light me-2">Panel Admin</a>
-        <form method="POST" action="{{ route('logout') }}" class="d-inline">
-          @csrf
-          <button type="submit" class="btn btn-outline-light">Logout</button>
-        </form>
-      @endguest
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{ route('home') }}">🚀 INFOTEL BUSINESS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Menú izquierdo con enlaces -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Usuarios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Centrales</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Repartidores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pedidos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Productos</a>
+              </li>
+            </ul>
+
+            <!-- Buscador y login/logout -->
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item me-3">
+                <form class="d-flex" role="search" method="GET" action="{{ route('home') }}">
+                  <input class="form-control me-2" type="search" placeholder="Buscar artesanía..." aria-label="Buscar" name="query" />
+                  <button class="btn btn-outline-light" type="submit">Buscar</button>
+                </form>
+              </li>
+
+              @guest
+                <li class="nav-item">
+                  <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
+                </li>
+              @else
+                <li class="nav-item me-2">
+                  <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light">Panel Admin</a>
+                </li>
+                <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-light">Logout</button>
+                  </form>
+                </li>
+              @endguest
+            </ul>
+          </div>
+        </div>
+      </nav>
+
 
 <!-- Carrusel -->
 <div id="carouselMain" class="carousel slide" data-bs-ride="carousel">
@@ -76,7 +109,7 @@
 
     {{-- Aquí se listarán los productos dinámicamente --}}
 
-    @foreach($productos as $producto)
+@foreach($productos as $producto)
     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
       <div class="card h-100">
         <img src="{{ $producto->imagen_url }}" class="card-img-top" alt="{{ $producto->nombre }}" />
@@ -109,8 +142,4 @@
 
 </body>
 </html>
-
-
-
-2/2
 
